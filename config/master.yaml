@@ -1,0 +1,6 @@
+runmode: debug
+# test release
+addr: :8888
+name: go_crontab
+url: http://127.0.0.1:8888
+mode: dev
