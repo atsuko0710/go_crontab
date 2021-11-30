@@ -1,6 +1,10 @@
-package master
+package main
 
-import "runtime"
+import (
+	"fmt"
+	"master/internal/master"
+	"runtime"
+)
 
 // initEnv 初始化线程数量
 func initEnv() {
@@ -10,7 +14,16 @@ func initEnv() {
 }
 
 func main() {
+	var (
+		err error
+	)
 	initEnv()
 
-	
+	if err = master.InitApiServer(); err != nil {
+		goto ERR
+	}
+
+	return
+ERR:
+	fmt.Println(err)
 }
