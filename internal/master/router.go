@@ -1,7 +1,7 @@
-package router
+package master
 
 import (
-	"master/internal/master/router/middleware"
+	"master/internal/pkg/middleware"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
