@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"master/internal/master"
+	"master/internal/master/store/etcd"
 	"runtime"
 )
 
@@ -20,6 +21,10 @@ func main() {
 	initEnv()
 
 	if err = master.InitApiServer(); err != nil {
+		goto ERR
+	}
+
+	if err = etcd.Init(); err != nil {
 		goto ERR
 	}
 
