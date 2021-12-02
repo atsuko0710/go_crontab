@@ -8,10 +8,7 @@ import (
 )
 
 func InitApiServer() (err error) {
-	if err = InitConfig(); err != nil {
-		return err
-	}
-
+	
 	gin.SetMode(viper.GetString("runmode"))
 	g := gin.New()
 
@@ -20,6 +17,6 @@ func InitApiServer() (err error) {
 		g,
 	)
 
-	http.ListenAndServe(":8888", g).Error()
+	http.ListenAndServe(viper.GetString("addr"), g).Error()
 	return
 }

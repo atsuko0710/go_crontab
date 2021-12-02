@@ -18,7 +18,12 @@ func main() {
 	var (
 		err error
 	)
+	
 	initEnv()
+
+	if err = master.InitConfig(); err != nil {
+		goto ERR
+	}
 
 	if err = master.InitApiServer(); err != nil {
 		goto ERR
