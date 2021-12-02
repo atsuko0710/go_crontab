@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"master/internal/pkg/validation"
+	
 	"master/internal/master"
 	"master/internal/master/store/etcd"
 	"runtime"
@@ -29,10 +31,15 @@ func main() {
 		goto ERR
 	}
 
-	if err = etcd.Init(); err != nil {
+	// 初始化验证器的翻译器
+	if err := validation.InitTrans("zh"); err != nil {
 		goto ERR
 	}
 
+	if err = etcd.Init(); err != nil {
+		goto ERR
+	}
+	
 	return
 ERR:
 	fmt.Println(err)

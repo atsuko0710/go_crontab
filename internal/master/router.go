@@ -2,6 +2,7 @@ package master
 
 import (
 	"master/internal/pkg/middleware"
+	"master/internal/master/controller/v1"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -25,6 +26,9 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 			"message": "Hello world!",
 		})
 	})
+
+	v1 := g.Group("/api/v1")
+	v1.POST("/job", job.Create)
 
 	return g
 }
