@@ -39,6 +39,8 @@ func main() {
 	if err = etcd.Init(); err != nil {
 		goto ERR
 	}
+	fmt.Println("connect to etcd success")
+	defer etcd.Client.Close()
 	
 	return
 ERR:

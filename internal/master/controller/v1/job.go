@@ -2,6 +2,7 @@ package job
 
 import (
 	"master/internal/master/params"
+	v1 "master/internal/master/service/v1"
 
 	"master/internal/pkg/code"
 	"net/http"
@@ -27,4 +28,6 @@ func Create(c *gin.Context) {
 		})
 		return
 	}
+
+	v1.CreateJob(&params)
 }
