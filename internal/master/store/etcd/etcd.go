@@ -10,28 +10,25 @@ import (
 	clientv3 "go.etcd.io/etcd/client/v3"
 )
 
-var Client clientv3.Client
+var Client *clientv3.Client
 
 func Init() (err error) {
 	options.GetEtcdConfig()
-	Client, err := clientv3.New(clientv3.Config{
-		Endpoints:   []string{"127.0.0.1:2379"},
-		DialTimeout: 5 * time.Second,
+	Client, err = clientv3.New(clientv3.Config{
+		Endpoints:   options.Etcd_Options.Endpoints,
+		DialTimeout: time.Duration(options.Etcd_Options.DialTimeout) * time.Millisecond, // 连接超时
 	})
-
+	
 	if err != nil {
 		return err
 	}
 
-	if Client == nil {
-		panic(fmt.Errorf("etcd connection failed, err:%v", err))
-	}
 	return nil
 }
 
 func Put(key string, val string) (putResp *clientv3.PutResponse, err error) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
-	putResp, err = Client.Put(ctx, "tes", "2333")
+	putResp, err = Client.Put(ctx, key, val)
 	if err != nil {
 		fmt.Println(err.Error())
 		return

@@ -27,10 +27,6 @@ func main() {
 		goto ERR
 	}
 
-	if err = master.InitApiServer(); err != nil {
-		goto ERR
-	}
-
 	// 初始化验证器的翻译器
 	if err := validation.InitTrans("zh"); err != nil {
 		goto ERR
@@ -42,6 +38,10 @@ func main() {
 	fmt.Println("connect to etcd success")
 	defer etcd.Client.Close()
 	
+	if err = master.InitApiServer(); err != nil {
+		goto ERR
+	}
+
 	return
 ERR:
 	fmt.Println(err)
